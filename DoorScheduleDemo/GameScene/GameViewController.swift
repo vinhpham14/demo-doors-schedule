@@ -22,6 +22,10 @@ class GameViewController: UIViewController {
             skView.showsNodeCount = true
         }
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
 
     override var shouldAutorotate: Bool {
         return true

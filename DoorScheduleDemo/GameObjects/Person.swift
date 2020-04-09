@@ -11,13 +11,23 @@ import RxSwift
 import RxCocoa
 import SpriteKit
 
+enum PersonType {
+  case business
+  case online
+  case normal
+  case unknown
+}
+
 class Person : BaseObject {
   
   // MARK: - Instance Properties
   public var type: PersonType = .unknown
+  public var isProceeding: Bool = false
   
   // MARK: - Instance functions
   public func move(to point: CGPoint) {
-    self.run(SKAction.move(to: point, duration: Settings.moveTime))
+    self.run(SKAction.move(to: point, duration: Config.moveTime))
   }
 }
+
+

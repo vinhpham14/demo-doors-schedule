@@ -20,6 +20,9 @@
 		D4414E16243DBB2B005F7D8D /* DoorScheduleDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4414E15243DBB2B005F7D8D /* DoorScheduleDemoUITests.swift */; };
 		D4414E24243DBBF3005F7D8D /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4414E23243DBBF3005F7D8D /* GameScene.swift */; };
 		D4414E26243DBC09005F7D8D /* GameSceneEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4414E25243DBC09005F7D8D /* GameSceneEx.swift */; };
+		D456CBDF243F3B27008E0284 /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = D456CBDE243F3B27008E0284 /* Events.swift */; };
+		D456CBE1243F3B38008E0284 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = D456CBE0243F3B38008E0284 /* Config.swift */; };
+		D456CBE3243F3B7D008E0284 /* Pool.swift in Sources */ = {isa = PBXBuildFile; fileRef = D456CBE2243F3B7D008E0284 /* Pool.swift */; };
 		D45A5758243DE94500E29BD1 /* Door.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45A5757243DE94500E29BD1 /* Door.swift */; };
 		D45A575A243DE95200E29BD1 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45A5759243DE95200E29BD1 /* Person.swift */; };
 		D45A575C243DE95C00E29BD1 /* Entrance.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45A575B243DE95C00E29BD1 /* Entrance.swift */; };
@@ -68,10 +71,13 @@
 		D4414E17243DBB2B005F7D8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4414E23243DBBF3005F7D8D /* GameScene.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D4414E25243DBC09005F7D8D /* GameSceneEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSceneEx.swift; sourceTree = "<group>"; };
-		D45A5757243DE94500E29BD1 /* Door.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Door.swift; sourceTree = "<group>"; };
-		D45A5759243DE95200E29BD1 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		D456CBDE243F3B27008E0284 /* Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Events.swift; sourceTree = "<group>"; };
+		D456CBE0243F3B38008E0284 /* Config.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; tabWidth = 2; };
+		D456CBE2243F3B7D008E0284 /* Pool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pool.swift; sourceTree = "<group>"; };
+		D45A5757243DE94500E29BD1 /* Door.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Door.swift; sourceTree = "<group>"; tabWidth = 2; };
+		D45A5759243DE95200E29BD1 /* Person.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D45A575B243DE95C00E29BD1 /* Entrance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entrance.swift; sourceTree = "<group>"; };
-		D45A575D243DE97400E29BD1 /* Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controller.swift; sourceTree = "<group>"; };
+		D45A575D243DE97400E29BD1 /* Controller.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Controller.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D45A575F243DE9B400E29BD1 /* BaseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseObject.swift; sourceTree = "<group>"; };
 		DCB92DA64B80EB6A349E8FB1 /* Pods-DoorScheduleDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DoorScheduleDemoTests.release.xcconfig"; path = "Target Support Files/Pods-DoorScheduleDemoTests/Pods-DoorScheduleDemoTests.release.xcconfig"; sourceTree = "<group>"; };
 		F529AC4DE6D4DEEF0229200E /* Pods-DoorScheduleDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DoorScheduleDemo.debug.xcconfig"; path = "Target Support Files/Pods-DoorScheduleDemo/Pods-DoorScheduleDemo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -154,15 +160,14 @@
 		D4414DEE243DBB2B005F7D8D /* DoorScheduleDemo */ = {
 			isa = PBXGroup;
 			children = (
+				D456CBDC243F3A95008E0284 /* GameScene */,
 				D45A5756243DE93800E29BD1 /* GameObjects */,
 				D4414DEF243DBB2B005F7D8D /* AppDelegate.swift */,
 				D4414DF5243DBB2B005F7D8D /* GameSceneExample.swift */,
-				D4414DF7243DBB2B005F7D8D /* GameViewController.swift */,
 				D4414DF9243DBB2B005F7D8D /* Main.storyboard */,
 				D4414DFC243DBB2B005F7D8D /* Assets.xcassets */,
 				D4414DFE243DBB2B005F7D8D /* LaunchScreen.storyboard */,
 				D4414E01243DBB2B005F7D8D /* Info.plist */,
-				D4414E23243DBBF3005F7D8D /* GameScene.swift */,
 			);
 			path = DoorScheduleDemo;
 			sourceTree = "<group>";
@@ -185,14 +190,34 @@
 			path = DoorScheduleDemoUITests;
 			sourceTree = "<group>";
 		};
+		D456CBDC243F3A95008E0284 /* GameScene */ = {
+			isa = PBXGroup;
+			children = (
+				D4414DF7243DBB2B005F7D8D /* GameViewController.swift */,
+				D4414E23243DBBF3005F7D8D /* GameScene.swift */,
+				D456CBDE243F3B27008E0284 /* Events.swift */,
+				D456CBE0243F3B38008E0284 /* Config.swift */,
+			);
+			path = GameScene;
+			sourceTree = "<group>";
+		};
+		D456CBDD243F3AC0008E0284 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				D45A575D243DE97400E29BD1 /* Controller.swift */,
+				D45A575F243DE9B400E29BD1 /* BaseObject.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		D45A5756243DE93800E29BD1 /* GameObjects */ = {
 			isa = PBXGroup;
 			children = (
+				D456CBDD243F3AC0008E0284 /* Controller */,
 				D45A5757243DE94500E29BD1 /* Door.swift */,
 				D45A5759243DE95200E29BD1 /* Person.swift */,
 				D45A575B243DE95C00E29BD1 /* Entrance.swift */,
-				D45A575D243DE97400E29BD1 /* Controller.swift */,
-				D45A575F243DE9B400E29BD1 /* BaseObject.swift */,
+				D456CBE2243F3B7D008E0284 /* Pool.swift */,
 			);
 			path = GameObjects;
 			sourceTree = "<group>";
@@ -437,10 +462,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D45A575E243DE97400E29BD1 /* Controller.swift in Sources */,
+				D456CBDF243F3B27008E0284 /* Events.swift in Sources */,
 				D45A5760243DE9B400E29BD1 /* BaseObject.swift in Sources */,
 				D4414E26243DBC09005F7D8D /* GameSceneEx.swift in Sources */,
 				D45A575C243DE95C00E29BD1 /* Entrance.swift in Sources */,
 				D45A5758243DE94500E29BD1 /* Door.swift in Sources */,
+				D456CBE1243F3B38008E0284 /* Config.swift in Sources */,
+				D456CBE3243F3B7D008E0284 /* Pool.swift in Sources */,
 				D4414DF6243DBB2B005F7D8D /* GameSceneExample.swift in Sources */,
 				D4414DF8243DBB2B005F7D8D /* GameViewController.swift in Sources */,
 				D45A575A243DE95200E29BD1 /* Person.swift in Sources */,

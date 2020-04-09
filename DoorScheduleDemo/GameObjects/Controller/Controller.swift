@@ -35,10 +35,20 @@ class BasicController: GameController {
     
     Events.newPerson
       .subscribe(onNext: { [unowned self] person in
+        NSLog(".")
         let door = self.pickDoor(person)
-        
+        door.append(person)
       })
       .disposed(by: disposeBag)
+    
+//    Events.newPersonOnDoor
+//      .subscribe(onNext: { processPair in
+//        if !processPair.door.isProceeding {
+//          processPair.person.isProceeding = true
+//          processPair.door.proceed(processPair.person)
+//        }
+//      })
+//      .disposed(by: disposeBag)
   }
   
   // MARK: - Instance functions
