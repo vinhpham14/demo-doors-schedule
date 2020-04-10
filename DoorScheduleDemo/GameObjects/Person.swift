@@ -22,10 +22,9 @@ class Person : BaseObject {
   
   // MARK: - Instance Properties
   public var type: PersonType = .unknown
-  public var isProceeding: Bool = false
   
   // MARK: - Instance functions
-  public func move(to point: CGPoint) {
+  public func move(to point: CGPoint, duration: TimeInterval = Config.moveTime) {
     self.run(SKAction.move(to: point, duration: Config.moveTime))
   }
 }

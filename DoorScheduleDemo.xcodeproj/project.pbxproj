@@ -78,7 +78,7 @@
 		D45A5759243DE95200E29BD1 /* Person.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D45A575B243DE95C00E29BD1 /* Entrance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entrance.swift; sourceTree = "<group>"; };
 		D45A575D243DE97400E29BD1 /* Controller.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Controller.swift; sourceTree = "<group>"; tabWidth = 2; };
-		D45A575F243DE9B400E29BD1 /* BaseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseObject.swift; sourceTree = "<group>"; };
+		D45A575F243DE9B400E29BD1 /* BaseObject.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = BaseObject.swift; sourceTree = "<group>"; tabWidth = 2; };
 		DCB92DA64B80EB6A349E8FB1 /* Pods-DoorScheduleDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DoorScheduleDemoTests.release.xcconfig"; path = "Target Support Files/Pods-DoorScheduleDemoTests/Pods-DoorScheduleDemoTests.release.xcconfig"; sourceTree = "<group>"; };
 		F529AC4DE6D4DEEF0229200E /* Pods-DoorScheduleDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DoorScheduleDemo.debug.xcconfig"; path = "Target Support Files/Pods-DoorScheduleDemo/Pods-DoorScheduleDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */

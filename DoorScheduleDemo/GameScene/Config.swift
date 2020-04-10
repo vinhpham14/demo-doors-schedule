@@ -13,6 +13,8 @@ enum Config {
   public static let doorSize = CGSize(width: 40, height: 40)
   public static let entranceSize = CGSize(width: 40, height: 40)
   public static let personSize = CGSize(width: 20, height: 20)
+  public static let horizontalDistance = CGFloat(500)
+  
   public static let overallSpeed: Double = 2.0
   
   public static let startTime: TimeInterval = 1 / Config.overallSpeed

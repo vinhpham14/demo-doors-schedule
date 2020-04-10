@@ -11,11 +11,17 @@ import SpriteKit
 import RxSwift
 import RxCocoa
 
-class BaseObject : SKShapeNode, TimeSynchronizable {
+enum State {
+  case idle
+  case inProcess
+  case done
+}
+
+class BaseObject : SKShapeNode, Updatable {
   
   // MARK: - Instance Properties
-  
-  
+  public let bag = DisposeBag()
+  public var state: State = .idle
   
   // MARK: - Instance Methods
   

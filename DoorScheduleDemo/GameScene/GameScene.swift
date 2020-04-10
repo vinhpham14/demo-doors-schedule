@@ -84,7 +84,7 @@ class GameScene : SKScene {
   }
   
   private func _layoutNodes() {
-    let horizontalDistance: CGFloat = 300
+    let horizontalDistance: CGFloat = Config.horizontalDistance
     entrance.position = CGPoint(x: 40, y: frame.height / 2)
     doorMedium.position = CGPoint(x: horizontalDistance, y: frame.height / 2)
     doorLow.position = CGPoint(x: horizontalDistance, y: 40)
@@ -94,15 +94,17 @@ class GameScene : SKScene {
 
 extension GameScene : SKSceneDelegate {
   override func update(_ currentTime: TimeInterval) {
-    basicController.update(self, currentTime: currentTime)
+    for d in doors {
+      d.update(currentTime)
+    }
   }
 }
 
-protocol TimeSynchronizable {
+protocol Updatable {
   func update(_ currentTime: TimeInterval)
 }
 
-extension TimeSynchronizable {
+extension Updatable {
   public func update(_ currentTime: TimeInterval) {
     fatalError("not implement yet.")
   }
