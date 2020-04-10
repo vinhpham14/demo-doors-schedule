@@ -33,11 +33,23 @@ enum DoorType {
 
 class Door : BaseObject {
   
+  // MARK: - Processing
+  public var processingPerson: Person?
+  
   // MARK: - Instance Properties
-  public var queue = [Person]()
-  public lazy var emptyPosition: CGPoint = {
-    return position
-  }()
+  public var personsComing = [Person]()
+  public var personsInLine = [Person]()
+  public var emptyPosition: CGPoint {
+    var currentPersons = [Person]()
+    let temp = personsInLine.filter{ $0.state == .idle }
+    currentPersons.append(contentsOf: temp)
+    currentPersons.append(contentsOf: self.personsComing)
+    let x = currentPersons.reduce(position.x - Config.spaceFromDoorAndLine) { sum, _ in
+      return sum - Config.personSize.width
+    }
+    
+    return CGPoint(x: x, y: position.y)
+  }
   public lazy var finishPosition: CGPoint = {
     return CGPoint(x: 667 - Config.personSize.width, y: position.y)
   }()
@@ -47,7 +59,7 @@ class Door : BaseObject {
   // MARK: - Instance Life Circles
   override init() {
     super.init()
-    beginProcessPublisher
+    /* beginProcessPublisher
       .do(onNext: { [unowned self] p in
         self.state = .inProcess
         self.fillColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
@@ -68,7 +80,7 @@ class Door : BaseObject {
         self.fillColor = .clear
         self.moveLine()
       })
-      .disposed(by: bag)
+      .disposed(by: bag) */
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -77,29 +89,37 @@ class Door : BaseObject {
   
   // MARK: - Instance Functions
   public func append(_ person: Person) {
-    queue.append(person)
-    person.move(to: emptyPosition)
-    emptyPosition = CGPoint(x: emptyPosition.x - person.frame.size.width, y: emptyPosition.y)
+    
   }
   
   public func remove(_ person: Person) {
-    queue.removeAll { $0 === person }
+    // queue.removeAll { $0 === person }
   }
   
-  public func moveLine() {
-    for p in queue {
-      if (p.state == .done) {
-        p.move(to: finishPosition)
-      } else {
-        let pos = CGPoint(x: p.position.x + Config.personSize.width, y: p.position.y)
-        p.move(to: pos, duration: 0.1)
-      }
+  public func estimatedRemainingTime() -> Int {
+    let overageTime = (self.type.timeRange.upperBound + self.type.timeRange.lowerBound) / 2
+    return self.countLeftPerson() * Int(overageTime)
+  }
+  
+  public func countLeftPerson() -> Int {
+    var currentPersons = [Person]()
+    let temp = personsInLine.filter{ $0.state == .idle }
+    currentPersons.append(contentsOf: temp)
+    currentPersons.append(contentsOf: self.personsComing)
+    return currentPersons.count
+  }
+  
+  public func rightPositionOfPerson(_ person: Person) -> CGPoint {
+    if let index = personsInLine.firstIndex(of: person) {
+      let x = position.x - Config.spaceFromDoorAndLine - CGFloat(index) * Config.personSize.width
+      return CGPoint(x: x, y: position.y)
     }
+    fatalError("ERROR")
   }
   
-  public func proceed(_ person: Person) {
-//    Events.willProceed.onNext((door: self, person: person))
-//    Events.didProceed.onNext((door: self, person: person))
+  public func rightPositionOfPerson(_ index: Int) -> CGPoint {
+    let x = position.x - Config.spaceFromDoorAndLine - CGFloat(index) * Config.personSize.width
+    return CGPoint(x: x, y: position.y)
   }
   
 }
@@ -107,29 +127,62 @@ class Door : BaseObject {
 extension Door {
   func update(_ currentTime: TimeInterval) {
     
-    // Check if ready to proceed
-    if let person = getCurrentPerson() {
-      if (frame.contains(person.frame) && person.state == .idle && !person.hasActions()) {
-        person.state = .inProcess
-        beginProcessPublisher.onNext(person)
+    // Pick person
+    if (state == .idle
+      && processingPerson == nil
+      && personsInLine.filter({$0.state != .done}).count > 0) {
+      
+      let nextPerson = self.personsInLine.first { $0.state == .idle }
+      if let nextPerson = nextPerson {
+        nextPerson.state = .inProcess
+        nextPerson.isProcessing = true
+        state = .inPrepare
+        
+        nextPerson.move(to: position) { [unowned self] in
+          
+          ///
+          /// Next person was at process zone
+          ///
+          // update lines
+          var index = 0
+          for p in self.personsInLine.filter({ $0.state == .idle }) {
+            p.run(SKAction.move(to: self.rightPositionOfPerson(index), duration: Config.moveTime))
+            index += 1
+          }
+          
+          self.processingPerson = nextPerson
+          self.state = .inProcess
+          let time = TimeInterval(UInt.random(in: self.type.timeRange))
+          self.run(SKAction.sequence([
+            SKAction.wait(forDuration: time),
+            
+            // Complete processing
+            SKAction.run {
+              self.processingPerson!.run(SKAction.move(to: self.finishPosition, duration: Config.moveTime))
+              self.processingPerson!.state = .done
+              self.processingPerson = nil
+              self.state = .idle
+              debugPrint("finish: \(self.countLeftPerson())")
+            }
+          ]))
+        }
       }
     }
     
+    // Update color
+    fillColor = state == .inProcess ? #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1) : .clear
+    
+    // Update line
+    // self.updateLine()
   }
   
-  func getCurrentPerson() -> Person? {
-    var index = 0
-    var person: Person? = nil
-    while (index < queue.count) {
-      let p = queue[index]
-      if p.state == .done {
-        index += 1
-      } else {
-        person = p
-        break
-      }
+  func updateLine() {
+    var x = position.x - Config.spaceFromDoorAndLine
+    for p in personsInLine.filter({ $0.state == .idle }) {
+      let point = CGPoint(x: x, y: position.y)
+      x -= Config.personSize.width
+      p.moveToDoor(to: point, duration: 1.0)
     }
-    return person
   }
   
 }

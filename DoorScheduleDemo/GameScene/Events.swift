@@ -9,7 +9,8 @@
 import SpriteKit
 import RxSwift
 
-typealias ProcessPair = (door: Door, person: Person)
+typealias Pair = (door: Door, person: Person)
+typealias CurrentContext = (emptyDoor: Door, scene: GameScene)
 
 // Wrap up everything happen in a game with RxSwift
 final class Events {
@@ -19,7 +20,9 @@ final class Events {
   
   // Objects
   static public let newPerson = PublishSubject<Person>()
-  static public let willProceed = PublishSubject<ProcessPair>()
-  static public let didProceed = PublishSubject<ProcessPair>()
-  static public let newPersonOnDoor = PublishSubject<ProcessPair>()
+  static public let willProceed = PublishSubject<Pair>()
+  static public let didProceed = PublishSubject<Pair>()
+  static public let newPersonOnDoor = PublishSubject<Pair>()
+  static public let personDidArrivedDoor = PublishSubject<Pair>()
+  static public let doorEmpty = PublishSubject<CurrentContext>()
 }

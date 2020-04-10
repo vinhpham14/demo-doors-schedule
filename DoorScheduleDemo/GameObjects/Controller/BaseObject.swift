@@ -14,6 +14,8 @@ import RxCocoa
 enum State {
   case idle
   case inProcess
+  case inPrepare
+  case onGoing
   case done
 }
 

@@ -71,9 +71,9 @@
 		D4414E17243DBB2B005F7D8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4414E23243DBBF3005F7D8D /* GameScene.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D4414E25243DBC09005F7D8D /* GameSceneEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSceneEx.swift; sourceTree = "<group>"; };
-		D456CBDE243F3B27008E0284 /* Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Events.swift; sourceTree = "<group>"; };
+		D456CBDE243F3B27008E0284 /* Events.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Events.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D456CBE0243F3B38008E0284 /* Config.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; tabWidth = 2; };
-		D456CBE2243F3B7D008E0284 /* Pool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pool.swift; sourceTree = "<group>"; };
+		D456CBE2243F3B7D008E0284 /* Pool.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Pool.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D45A5757243DE94500E29BD1 /* Door.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Door.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D45A5759243DE95200E29BD1 /* Person.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D45A575B243DE95C00E29BD1 /* Entrance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entrance.swift; sourceTree = "<group>"; };

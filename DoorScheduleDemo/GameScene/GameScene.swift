@@ -11,15 +11,21 @@ import SpriteKit
 import RxSwift
 import RxCocoa
 
-enum GameSceneActionKey {
+enum ActionKeys {
   public static let spawnPerson = "SPAWN_PERSON"
+  public static let personGoingToTarget = "PERSON_GOING_TO_TARGET"
+  public static let personMove = "PERSON_MOVE"
 }
 
 
 class GameScene : SKScene {
   
   // MARK: - Instance properties
-  public let basicController = BasicController()
+  
+  public var currentTick: Int64 = 0
+  public var currentSecond: Int64 = 0
+  
+  public let basicController = Controller()
   public var entrance: Entrance!
   public var doorHigh: Door!
   public var doorMedium: Door!
@@ -49,7 +55,7 @@ class GameScene : SKScene {
           ])
         )
       ]),
-      withKey: GameSceneActionKey.spawnPerson
+      withKey: ActionKeys.spawnPerson
     )
   }
   
@@ -63,7 +69,7 @@ class GameScene : SKScene {
         self.addChild(person)
         Events.newPerson.onNext(person)
       } else {
-        self.removeAction(forKey: GameSceneActionKey.spawnPerson)
+        self.removeAction(forKey: ActionKeys.spawnPerson)
       }
     }
   }
@@ -94,9 +100,41 @@ class GameScene : SKScene {
 
 extension GameScene : SKSceneDelegate {
   override func update(_ currentTime: TimeInterval) {
+    
+    self.currentTick += 1
+    if (self.currentTick % 60 == 0) {
+      self.currentSecond += 1
+      debugPrint(self.currentSecond)
+    }
+    
+    
+    // Update door
     for d in doors {
       d.update(currentTime)
+      
+      // Check if door is empty
+      let type = d.type
+      var personByTypeRemaining = 0
+      if type == .high {
+        personByTypeRemaining = pool.typeOneCount
+      } else if type == .medium {
+        personByTypeRemaining = pool.typeTwoCount
+      } else if type == .low {
+        personByTypeRemaining = pool.typeThreeCount
+      }
+      if d.countLeftPerson() == 0 && d.state == .idle && personByTypeRemaining <= 0{
+        Events.doorEmpty.onNext((emptyDoor: d, scene: self))
+      }
     }
+    
+    // Update person
+    for n in children {
+      if let n = n as? Person {
+        n.update(currentTime)
+      }
+    }
+    
+    
   }
 }
 

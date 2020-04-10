@@ -19,7 +19,7 @@ protocol GameController {
 }
 
 
-class BasicController: GameController {
+class Controller: GameController {
   typealias SceneType = GameScene
   
   let disposeBag = DisposeBag()
@@ -36,7 +36,55 @@ class BasicController: GameController {
     Events.newPerson
       .subscribe(onNext: { [unowned self] person in
         let door = self.pickDoor(person)
-        door.append(person)
+        person.targetPosition = door.emptyPosition
+        person.targetDoor = door
+        person.moveToDoor(to: person.targetPosition)
+        door.personsComing.append(person)
+      })
+      .disposed(by: disposeBag)
+    
+    Events.personDidArrivedDoor
+      .subscribe(onNext: { pair in
+        pair.person.state = .idle
+        pair.door.personsComing.removeAll { $0 === pair.person }
+        pair.door.personsInLine.append(pair.person)
+      })
+      .disposed(by: disposeBag)
+    
+    Events.doorEmpty
+      .subscribe(onNext: { context in
+        var pickDoor = context.scene.doors[0]
+        for door in context.scene.doors {
+          if door === context.emptyDoor { continue }
+          pickDoor = pickDoor.estimatedRemainingTime() < door.estimatedRemainingTime()
+            ? door
+            : pickDoor
+        }
+        
+        if pickDoor.estimatedRemainingTime() < context.emptyDoor.type.timeRange.lowerBound + UInt(Config.moveTime) { return }
+        if (pickDoor.personsComing.count > 0) {
+          let p = pickDoor.personsComing.popLast()
+          if let p = p,
+            (p.state == .idle)
+              && p.isProcessing == false {
+            p.removeAllActions()
+            p.targetPosition = context.emptyDoor.emptyPosition
+            p.targetDoor = context.emptyDoor
+            p.moveToDoor(to: p.targetPosition)
+            context.emptyDoor.personsComing.append(p)
+          }
+        } else {
+          let p = pickDoor.personsInLine.popLast()
+          if let p = p,
+            (p.state == .idle)
+              && p.isProcessing == false {
+            p.removeAllActions()
+            p.targetPosition = context.emptyDoor.emptyPosition
+            p.targetDoor = context.emptyDoor
+            p.moveToDoor(to: p.targetPosition)
+            context.emptyDoor.personsComing.append(p)
+          }
+        }
       })
       .disposed(by: disposeBag)
   }

@@ -17,12 +17,14 @@ enum Config {
   
   public static let overallSpeed: Double = 2.0
   
-  public static let startTime: TimeInterval = 1 / Config.overallSpeed
+  public static let startTime: TimeInterval = 0 / Config.overallSpeed
   public static let moveTime: TimeInterval = 2 / Config.overallSpeed
   public static let spawnTime: TimeInterval = 1 / Config.overallSpeed
   
   // Gameplay
   public static let personCount: Int = 10
+  
+  public static let spaceFromDoorAndLine: CGFloat = 50
   
   public static let typeOneRate: Double = 0.1
   public static let typeTwoRate: Double = 0.3
@@ -31,4 +33,8 @@ enum Config {
   public static let typeOneTimeRange: ClosedRange<UInt> = 2...3
   public static let typeTwoTimeRange: ClosedRange<UInt> = 1...4
   public static let typeThreeTimeRange: ClosedRange<UInt> = 3...7
+  
+  
+  // Hotfix
+  public static let waitAfterNextAction: TimeInterval = 0.1 / Config.overallSpeed
 }
