@@ -19,7 +19,6 @@
 		D4414E0B243DBB2B005F7D8D /* DoorScheduleDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4414E0A243DBB2B005F7D8D /* DoorScheduleDemoTests.swift */; };
 		D4414E16243DBB2B005F7D8D /* DoorScheduleDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4414E15243DBB2B005F7D8D /* DoorScheduleDemoUITests.swift */; };
 		D4414E24243DBBF3005F7D8D /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4414E23243DBBF3005F7D8D /* GameScene.swift */; };
-		D4414E26243DBC09005F7D8D /* GameSceneEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4414E25243DBC09005F7D8D /* GameSceneEx.swift */; };
 		D456CBDF243F3B27008E0284 /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = D456CBDE243F3B27008E0284 /* Events.swift */; };
 		D456CBE1243F3B38008E0284 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = D456CBE0243F3B38008E0284 /* Config.swift */; };
 		D456CBE3243F3B7D008E0284 /* Pool.swift in Sources */ = {isa = PBXBuildFile; fileRef = D456CBE2243F3B7D008E0284 /* Pool.swift */; };
@@ -70,7 +69,6 @@
 		D4414E15243DBB2B005F7D8D /* DoorScheduleDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoorScheduleDemoUITests.swift; sourceTree = "<group>"; };
 		D4414E17243DBB2B005F7D8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4414E23243DBBF3005F7D8D /* GameScene.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; tabWidth = 2; };
-		D4414E25243DBC09005F7D8D /* GameSceneEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSceneEx.swift; sourceTree = "<group>"; };
 		D456CBDE243F3B27008E0284 /* Events.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Events.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D456CBE0243F3B38008E0284 /* Config.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D456CBE2243F3B7D008E0284 /* Pool.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Pool.swift; sourceTree = "<group>"; tabWidth = 2; };
@@ -139,7 +137,6 @@
 			children = (
 				D4414DEE243DBB2B005F7D8D /* DoorScheduleDemo */,
 				D4414E09243DBB2B005F7D8D /* DoorScheduleDemoTests */,
-				D4414E25243DBC09005F7D8D /* GameSceneEx.swift */,
 				D4414E14243DBB2B005F7D8D /* DoorScheduleDemoUITests */,
 				D4414DED243DBB2B005F7D8D /* Products */,
 				7BE62E414F290E722F416E43 /* Pods */,
@@ -464,7 +461,6 @@
 				D45A575E243DE97400E29BD1 /* Controller.swift in Sources */,
 				D456CBDF243F3B27008E0284 /* Events.swift in Sources */,
 				D45A5760243DE9B400E29BD1 /* BaseObject.swift in Sources */,
-				D4414E26243DBC09005F7D8D /* GameSceneEx.swift in Sources */,
 				D45A575C243DE95C00E29BD1 /* Entrance.swift in Sources */,
 				D45A5758243DE94500E29BD1 /* Door.swift in Sources */,
 				D456CBE1243F3B38008E0284 /* Config.swift in Sources */,

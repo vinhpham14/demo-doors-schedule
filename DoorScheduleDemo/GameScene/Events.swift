@@ -20,9 +20,8 @@ final class Events {
   
   // Objects
   static public let newPerson = PublishSubject<Person>()
-  static public let willProceed = PublishSubject<Pair>()
-  static public let didProceed = PublishSubject<Pair>()
   static public let newPersonOnDoor = PublishSubject<Pair>()
   static public let personDidArrivedDoor = PublishSubject<Pair>()
   static public let doorEmpty = PublishSubject<CurrentContext>()
+  // static public let didPersonCompletion = PublishSubject<Pair>()
 }

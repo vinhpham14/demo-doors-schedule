@@ -35,6 +35,7 @@ class Door : BaseObject {
   
   // MARK: - Processing
   public var processingPerson: Person?
+  public var personCompletedCount: Int = 0
   
   // MARK: - Instance Properties
   public var personsComing = [Person]()
@@ -162,7 +163,7 @@ extension Door {
               self.processingPerson!.state = .done
               self.processingPerson = nil
               self.state = .idle
-              debugPrint("finish: \(self.countLeftPerson())")
+              self.personCompletedCount += 1
             }
           ]))
         }

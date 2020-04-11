@@ -22,7 +22,7 @@ enum Config {
   public static let spawnTime: TimeInterval = 1 / Config.overallSpeed
   
   // Gameplay
-  public static let personCount: Int = 10
+  public static let personCount: Int = 20
   
   public static let spaceFromDoorAndLine: CGFloat = 50
   

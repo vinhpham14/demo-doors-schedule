@@ -50,6 +50,38 @@ class Pool {
     self.queue.shuffle()
   }
   
+  init(typeOne: Int, typeTwo: Int, typeThree: Int) {
+    typeOneCount = typeOne
+    typeTwoCount = typeTwo
+    typeThreeCount = typeThree
+    
+    self.queue = []
+    self.count = typeOne + typeTwo + typeThree
+    var person: Person!
+    for _ in 1...typeOneCount {
+      person = Person(ellipseOf: Config.personSize)
+      person.type = .business
+      person.fillColor = person.type.color
+      queue.append(person)
+    }
+    
+    for _ in 1...typeTwoCount {
+      person = Person(ellipseOf: Config.personSize)
+      person.type = .online
+      person.fillColor = person.type.color
+      queue.append(person)
+    }
+    
+    for _ in 1...typeThreeCount {
+      person = Person(ellipseOf: Config.personSize)
+      person.type = .normal
+      person.fillColor = person.type.color
+      queue.append(person)
+    }
+    
+    self.queue.shuffle()
+  }
+  
   func pop() -> Person? {
     let canPop = (currentIndex <= queue.count - 1)
     if (canPop) {

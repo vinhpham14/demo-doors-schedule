@@ -61,29 +61,43 @@ class Controller: GameController {
             : pickDoor
         }
         
-        if pickDoor.estimatedRemainingTime() < context.emptyDoor.type.timeRange.lowerBound + UInt(Config.moveTime) { return }
-        if (pickDoor.personsComing.count > 0) {
-          let p = pickDoor.personsComing.popLast()
-          if let p = p,
-            (p.state == .idle)
-              && p.isProcessing == false {
-            p.removeAllActions()
-            p.targetPosition = context.emptyDoor.emptyPosition
-            p.targetDoor = context.emptyDoor
-            p.moveToDoor(to: p.targetPosition)
-            context.emptyDoor.personsComing.append(p)
+        var personsToMove: [Person] = []
+        while (pickDoor.estimatedRemainingTime() > context.emptyDoor.estimatedRemainingTime() + Int(Config.moveTime)) {
+          if pickDoor.estimatedRemainingTime() < context.emptyDoor.type.timeRange.lowerBound + UInt(Config.moveTime) { return }
+          if (pickDoor.personsComing.count > 0) {
+            let p = pickDoor.personsComing.popLast()
+            if let p = p,
+              (p.state == .idle)
+                && p.isProcessing == false {
+              personsToMove.insert(p, at: 0)
+              p.removeAllActions()
+              // p.targetPosition = context.emptyDoor.emptyPosition
+              p.targetDoor = context.emptyDoor
+              // p.moveToDoor(to: p.targetPosition)
+              context.emptyDoor.personsComing.insert(p, at: 0)
+            }
+          } else {
+            let p = pickDoor.personsInLine.popLast()
+            if let p = p,
+              (p.state == .idle)
+                && p.isProcessing == false {
+              personsToMove.insert(p, at: 0)
+              p.removeAllActions()
+              // p.targetPosition = context.emptyDoor.emptyPosition
+              p.targetDoor = context.emptyDoor
+              // p.moveToDoor(to: p.targetPosition)
+              context.emptyDoor.personsComing.insert(p, at: 0)
+            }
           }
-        } else {
-          let p = pickDoor.personsInLine.popLast()
-          if let p = p,
-            (p.state == .idle)
-              && p.isProcessing == false {
-            p.removeAllActions()
-            p.targetPosition = context.emptyDoor.emptyPosition
-            p.targetDoor = context.emptyDoor
-            p.moveToDoor(to: p.targetPosition)
-            context.emptyDoor.personsComing.append(p)
-          }
+        }
+        
+        var xPos = context.emptyDoor.position.x - Config.spaceFromDoorAndLine
+        for p in personsToMove {
+          
+          // p.targetPosition = context.emptyDoor.emptyPosition
+          p.targetPosition = CGPoint(x: xPos, y: context.emptyDoor.position.y)
+          xPos -= Config.personSize.width
+          p.moveToDoor(to: p.targetPosition)
         }
       })
       .disposed(by: disposeBag)

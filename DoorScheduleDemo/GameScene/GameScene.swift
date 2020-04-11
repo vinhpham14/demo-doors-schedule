@@ -30,7 +30,11 @@ class GameScene : SKScene {
   public var doorHigh: Door!
   public var doorMedium: Door!
   public var doorLow: Door!
-  public var pool = Pool(count: Config.personCount)
+  public var textA: SKLabelNode!
+  public var textB: SKLabelNode!
+  public var textC: SKLabelNode!
+  public var pool = Pool(count: 1_000_000)//Config.personCount)
+  // public var pool = Pool(typeOne: 2, typeTwo: 30, typeThree: 60)
   public lazy var doors: [Door] = {
     return [doorLow, doorMedium, doorHigh]
   }()
@@ -84,7 +88,11 @@ class GameScene : SKScene {
     doorMedium.type = .medium
     doorHigh.type = .high
     
-    for node in [doorLow, doorMedium, doorHigh, entrance] {
+    textA = SKLabelNode(text: "0")
+    textB = SKLabelNode(text: "0")
+    textC = SKLabelNode(text: "0")
+    
+    for node in [doorLow, doorMedium, doorHigh, entrance, textA, textB, textC] {
       addChild(node!)
     }
   }
@@ -92,9 +100,14 @@ class GameScene : SKScene {
   private func _layoutNodes() {
     let horizontalDistance: CGFloat = Config.horizontalDistance
     entrance.position = CGPoint(x: 40, y: frame.height / 2)
+    
+    doorHigh.position = CGPoint(x: horizontalDistance, y: frame.height - 40)
     doorMedium.position = CGPoint(x: horizontalDistance, y: frame.height / 2)
     doorLow.position = CGPoint(x: horizontalDistance, y: 40)
-    doorHigh.position = CGPoint(x: horizontalDistance, y: frame.height - 40)
+    
+    textA.position = CGPoint(x: doorHigh.position.x + 50.0, y: doorHigh.position.y - 10)
+    textB.position = CGPoint(x: doorMedium.position.x + 50.0, y: doorMedium.position.y - 10)
+    textC.position = CGPoint(x: doorLow.position.x + 50.0, y: doorLow.position.y - 10)
   }
 }
 
@@ -107,13 +120,18 @@ extension GameScene : SKSceneDelegate {
       debugPrint(self.currentSecond)
     }
     
-    
-    // Update door
+    ///
+    /// Update door
+    ///
     for d in doors {
       d.update(currentTime)
       
+      //
       // Check if door is empty
+      //
       let type = d.type
+      
+      // Find associated person type of this door
       var personByTypeRemaining = 0
       if type == .high {
         personByTypeRemaining = pool.typeOneCount
@@ -122,18 +140,26 @@ extension GameScene : SKSceneDelegate {
       } else if type == .low {
         personByTypeRemaining = pool.typeThreeCount
       }
-      if d.countLeftPerson() == 0 && d.state == .idle && personByTypeRemaining <= 0{
+      if d.countLeftPerson() == 0 && d.state == .idle && personByTypeRemaining <= 0 {
         Events.doorEmpty.onNext((emptyDoor: d, scene: self))
       }
     }
     
-    // Update person
+    ///
+    /// Update person
+    ///
     for n in children {
       if let n = n as? Person {
         n.update(currentTime)
       }
     }
     
+    ///
+    /// Update completion count
+    ///
+    textA.text = String(doorHigh.personCompletedCount)
+    textB.text = String(doorMedium.personCompletedCount)
+    textC.text = String(doorLow.personCompletedCount)
     
   }
 }
